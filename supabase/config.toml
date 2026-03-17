@@ -1,0 +1,10 @@
+project_id = "dyhazspvhsymfwizyaol"
+
+[functions.ai-classify]
+verify_jwt = true
+
+[functions.agent-api]
+verify_jwt = false
+
+[functions.auto-remediate]
+verify_jwt = true

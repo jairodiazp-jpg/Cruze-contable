@@ -1,0 +1,1 @@
+ALTER TABLE public.devices ADD COLUMN report_interval integer NOT NULL DEFAULT 60;

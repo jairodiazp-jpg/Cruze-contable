@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 215 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 15%;
+
+    --primary: 214 84% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 18% 95%;
+    --secondary-foreground: 215 25% 25%;
+
+    --muted: 210 14% 93%;
+    --muted-foreground: 215 14% 50%;
+
+    --accent: 214 84% 95%;
+    --accent-foreground: 214 84% 30%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 71% 40%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 100%;
+
+    --border: 214 20% 90%;
+    --input: 214 20% 90%;
+    --ring: 214 84% 40%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 215 25% 12%;
+    --sidebar-foreground: 210 14% 80%;
+    --sidebar-primary: 214 84% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 215 20% 18%;
+    --sidebar-accent-foreground: 210 14% 93%;
+    --sidebar-border: 215 20% 20%;
+    --sidebar-ring: 214 84% 56%;
+    --sidebar-muted: 215 14% 50%;
+
+    --chart-1: 214 84% 40%;
+    --chart-2: 142 71% 40%;
+    --chart-3: 38 92% 50%;
+    --chart-4: 0 72% 51%;
+    --chart-5: 199 89% 48%;
+  }
+
+  .dark {
+    --background: 215 25% 8%;
+    --foreground: 210 14% 93%;
+    --card: 215 25% 12%;
+    --card-foreground: 210 14% 93%;
+    --popover: 215 25% 12%;
+    --popover-foreground: 210 14% 93%;
+    --primary: 214 84% 56%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 215 20% 18%;
+    --secondary-foreground: 210 14% 80%;
+    --muted: 215 20% 18%;
+    --muted-foreground: 215 14% 50%;
+    --accent: 215 20% 22%;
+    --accent-foreground: 214 84% 70%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 215 20% 20%;
+    --input: 215 20% 20%;
+    --ring: 214 84% 56%;
+    --sidebar-background: 215 25% 6%;
+    --sidebar-foreground: 210 14% 80%;
+    --sidebar-primary: 214 84% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 215 20% 12%;
+    --sidebar-accent-foreground: 210 14% 93%;
+    --sidebar-border: 215 20% 15%;
+    --sidebar-ring: 214 84% 56%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  .stat-card {
+    @apply bg-card rounded-lg border p-5 transition-shadow hover:shadow-md;
+  }
+
+  .page-header {
+    @apply mb-6;
+  }
+
+  .page-title {
+    @apply text-2xl font-semibold text-foreground tracking-tight;
+  }
+
+  .page-description {
+    @apply text-sm text-muted-foreground mt-1;
+  }
+
+  .data-table {
+    @apply w-full border-collapse;
+  }
+
+  .data-table th {
+    @apply text-xs font-medium text-muted-foreground uppercase tracking-wider px-4 py-3 text-left bg-muted/50;
+  }
+
+  .data-table td {
+    @apply px-4 py-3 text-sm border-t border-border;
+  }
+
+  .data-table tr:hover td {
+    @apply bg-muted/30;
+  }
+
+  .status-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .status-available {
+    @apply bg-emerald-50 text-emerald-700 border border-emerald-200;
+  }
+
+  .status-assigned {
+    @apply bg-blue-50 text-blue-700 border border-blue-200;
+  }
+
+  .status-maintenance {
+    @apply bg-amber-50 text-amber-700 border border-amber-200;
+  }
+
+  .status-retired {
+    @apply bg-gray-100 text-gray-600 border border-gray-200;
+  }
+
+  .priority-high {
+    @apply bg-red-50 text-red-700 border border-red-200;
+  }
+
+  .priority-medium {
+    @apply bg-amber-50 text-amber-700 border border-amber-200;
+  }
+
+  .priority-low {
+    @apply bg-emerald-50 text-emerald-700 border border-emerald-200;
+  }
+
+  .priority-critical {
+    @apply bg-red-100 text-red-800 border border-red-300;
+  }
+}

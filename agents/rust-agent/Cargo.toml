@@ -1,0 +1,21 @@
+[package]
+name = "itagent-rs"
+version = "0.1.0"
+edition = "2021"
+description = "InteliSupp IT agent runtime in Rust"
+license = "MIT"
+
+[dependencies]
+anyhow = "1.0"
+base64 = "0.22"
+chrono = { version = "0.4", features = ["serde"] }
+clap = { version = "4.5", features = ["derive"] }
+hostname = "0.4"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sysinfo = "0.30"
+tokio = { version = "1.41", features = ["macros", "rt-multi-thread", "time", "process"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["fmt", "env-filter"] }
+uuid = { version = "1.10", features = ["v4", "serde"] }

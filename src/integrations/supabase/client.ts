@@ -4,6 +4,9 @@ import type { Database } from './types';
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL ?? '';
 const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ?? '';
+const FALLBACK_SUPABASE_URL = 'https://invalid.supabase.co';
+const FALLBACK_SUPABASE_PUBLISHABLE_KEY =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWYiOiJpbnZhbGlkIiwicm9sZSI6ImFub24iLCJpYXQiOjAsImV4cCI6NDA3MDkwODgwMH0.invalid';
 
 function getProjectRefFromUrl(url: string): string | null {
   try {
@@ -34,33 +37,40 @@ function getProjectRefFromPublishableKey(key: string): string | null {
   }
 }
 
-function validateSupabaseConfiguration(url: string, publishableKey: string) {
+function validateSupabaseConfiguration(url: string, publishableKey: string): string | null {
   if (!url || !publishableKey) {
-    throw new Error(
-      'Faltan variables de entorno de Supabase. Configura VITE_SUPABASE_URL y VITE_SUPABASE_PUBLISHABLE_KEY en el entorno de build.'
-    );
+    return 'Faltan variables de entorno de Supabase. Configura VITE_SUPABASE_URL y VITE_SUPABASE_PUBLISHABLE_KEY en el entorno de build.';
   }
 
   const urlProjectRef = getProjectRefFromUrl(url);
   const keyProjectRef = getProjectRefFromPublishableKey(publishableKey);
 
   if (!urlProjectRef || !keyProjectRef) {
-    throw new Error('Configuracion de Supabase invalida: no se pudo validar el proyecto configurado.');
+    return 'Configuracion de Supabase invalida: no se pudo validar el proyecto configurado.';
   }
 
   if (urlProjectRef !== keyProjectRef) {
-    throw new Error(
-      `Configuracion de Supabase inconsistente: la URL apunta a "${urlProjectRef}" y la publishable key a "${keyProjectRef}".`
-    );
+    return `Configuracion de Supabase inconsistente: la URL apunta a "${urlProjectRef}" y la publishable key a "${keyProjectRef}".`;
   }
+
+  return null;
 }
 
-validateSupabaseConfiguration(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const supabaseConfigurationError = validateSupabaseConfiguration(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+if (supabaseConfigurationError) {
+  console.error(`[Supabase] ${supabaseConfigurationError}`);
+}
+
+const resolvedSupabaseUrl = supabaseConfigurationError ? FALLBACK_SUPABASE_URL : SUPABASE_URL;
+const resolvedSupabasePublishableKey = supabaseConfigurationError
+  ? FALLBACK_SUPABASE_PUBLISHABLE_KEY
+  : SUPABASE_PUBLISHABLE_KEY;
 
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 
-export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+export const supabase = createClient<Database>(resolvedSupabaseUrl, resolvedSupabasePublishableKey, {
   auth: {
     storage: localStorage,
     persistSession: true,

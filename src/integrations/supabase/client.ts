@@ -2,8 +2,8 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL ?? '';
+const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ?? '';
 
 function getProjectRefFromUrl(url: string): string | null {
   try {
@@ -35,6 +35,12 @@ function getProjectRefFromPublishableKey(key: string): string | null {
 }
 
 function validateSupabaseConfiguration(url: string, publishableKey: string) {
+  if (!url || !publishableKey) {
+    throw new Error(
+      'Faltan variables de entorno de Supabase. Configura VITE_SUPABASE_URL y VITE_SUPABASE_PUBLISHABLE_KEY en el entorno de build.'
+    );
+  }
+
   const urlProjectRef = getProjectRefFromUrl(url);
   const keyProjectRef = getProjectRefFromPublishableKey(publishableKey);
 

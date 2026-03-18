@@ -46,7 +46,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: >-
             pages deploy dist
-            --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }}
+            --project-name=cruzeit
             --branch=${{ github.head_ref }}
 
       - name: Deploy preview (push non-main)
@@ -57,7 +57,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: >-
             pages deploy dist
-            --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }}
+            --project-name=cruzeit
             --branch=${{ github.ref_name }}
 
       - name: Deploy production (main)
@@ -68,5 +68,5 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: >-
             pages deploy dist
-            --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }}
+            --project-name=cruzeit
             --branch=main

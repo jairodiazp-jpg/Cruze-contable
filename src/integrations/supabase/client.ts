@@ -4,9 +4,9 @@ import type { Database } from './types';
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL ?? '';
 const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ?? '';
-const FALLBACK_SUPABASE_URL = 'https://invalid.supabase.co';
+const FALLBACK_SUPABASE_URL = 'https://dyhazspvhsymfwizyaol.supabase.co';
 const FALLBACK_SUPABASE_PUBLISHABLE_KEY =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWYiOiJpbnZhbGlkIiwicm9sZSI6ImFub24iLCJpYXQiOjAsImV4cCI6NDA3MDkwODgwMH0.invalid';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR5aGF6c3B2aHN5bWZ3aXp5YW9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1Mzc3ODcsImV4cCI6MjA4OTExMzc4N30.l0Nq9ftTZznG8fN3En5PQt_thBskQCbmVxC7Ke8NSSY';
 
 function getProjectRefFromUrl(url: string): string | null {
   try {
@@ -59,7 +59,7 @@ function validateSupabaseConfiguration(url: string, publishableKey: string): str
 const supabaseConfigurationError = validateSupabaseConfiguration(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 if (supabaseConfigurationError) {
-  console.error(`[Supabase] ${supabaseConfigurationError}`);
+  console.warn(`[Supabase] ${supabaseConfigurationError} Usando fallback seguro para mantener la app operativa.`);
 }
 
 const resolvedSupabaseUrl = supabaseConfigurationError ? FALLBACK_SUPABASE_URL : SUPABASE_URL;

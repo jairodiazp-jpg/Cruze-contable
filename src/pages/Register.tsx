@@ -28,6 +28,10 @@ const Register = () => {
       return "El correo no es válido. Usa un correo con dominio real, por ejemplo nombre@empresa.com.";
     }
 
+    if (message.includes("failed to fetch") || message.includes("network") || message.includes("fetch")) {
+      return "No se pudo conectar con el servidor de autenticación. Verifica la conexión y vuelve a intentar en unos segundos.";
+    }
+
     return rawMessage;
   };
 

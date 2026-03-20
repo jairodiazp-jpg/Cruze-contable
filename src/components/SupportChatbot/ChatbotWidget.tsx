@@ -35,7 +35,11 @@ export const ChatbotWidget: React.FC = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      const result = await resp.json();
+      let result: any = {};
+      const contentType = resp.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        result = await resp.json();
+      }
       if (!resp.ok) throw new Error(result.error || "Error desconocido");
       setSuccessMsg(`¡Ticket enviado! Tu número de caso es: ${result.caseNumber}. Revisa tu correo para más detalles.`);
       setStep('sent');

@@ -8,6 +8,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { RealtimeTaskNotifier } from "@/components/RealtimeTaskNotifier";
+import { SupportChatbot } from "@/components/SupportChatbot";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Inventory = lazy(() => import("./pages/Inventory"));
@@ -57,6 +58,7 @@ const ProtectedPage = ({ children }: { children: ReactNode }) => (
   </ProtectedRoute>
 );
 
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -67,6 +69,7 @@ const App = () => (
         <AuthProvider>
           <Suspense fallback={<PageFallback />}>
             <Routes>
+              {/* ...existing routes... */}
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/reset-password" element={<ResetPassword />} />
@@ -95,6 +98,7 @@ const App = () => (
               <Route path="/portal" element={<ProtectedPage><EmployeePortal /></ProtectedPage>} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            <SupportChatbot />
           </Suspense>
         </AuthProvider>
       </BrowserRouter>
